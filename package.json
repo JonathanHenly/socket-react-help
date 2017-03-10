@@ -1,0 +1,38 @@
+{
+  "name": "hiddenphrase",
+  "version": "0.0.1",
+  "description": "The Hidden Phrase package.",
+  "author": "Jonathan Henly <JonathanHenly@gmail.com>",
+  "contributors": [
+    {
+      "name": "Jonathan Henly",
+      "email": "JonathanHenly@gmail.com"
+    }
+  ],
+  "scripts": {
+    "build": "webpack -d",
+    "build-server": "babel tools/server.js -d lib/server.js"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.23.0",
+    "babel-preset-env": "^1.1.8",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.23.0",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "babel-core": "^6.23.1",
+    "babel-loader": "^6.3.2",
+    "child_process": "^1.0.2",
+    "express": "^4.14.1",
+    "open": "0.0.5",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "socket.io": "^1.7.3"
+  },
+  "main": "index.js",
+  "repository": "null",
+  "private": true,
+  "analyze": true,
+  "license": "MIT"
+}
