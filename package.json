@@ -10,8 +10,8 @@
     }
   ],
   "scripts": {
-    "build": "webpack -d",
-    "build-server": "babel tools/server.js -d lib/server.js"
+    "build-client": "webpack -d",
+    "build-server": "babel tools/server.js -d lib/"
   },
   "devDependencies": {
     "babel-cli": "^6.23.0",
@@ -28,7 +28,9 @@
     "open": "0.0.5",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
-    "socket.io": "^1.7.3"
+    "socket.io": "^1.7.3",
+    "webpack-dev-middleware": "^1.10.1",
+    "webpack-hot-middleware": "^2.17.1"
   },
   "main": "index.js",
   "repository": "null",
