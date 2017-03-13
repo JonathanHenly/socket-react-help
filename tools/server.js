@@ -54,7 +54,7 @@ const io = require('socket.io')(server);
 
 io.on('connection', (socket) => {
 	console.log('User Connected');
-
+	
   socket.emit('init', {
     message: "Initialized Connection"
   });
@@ -62,44 +62,46 @@ io.on('connection', (socket) => {
   socket.on('unscramble:word', (data) => {
     var recWhat = 'Received: {'
     
-    if(data.word !== '') {
-      recWhat += 'word: ' + data.word;
-    }
-    
+    recWhat += (data.word !== '') ? 'word: ' + data.word : '';
     if(data.count !== '') {
-      if(data.word !== '') {
-        recWhat += ', ';
-      }
+      recWhat += (data.word !== '') ? ', ' : '';
       
       recWhat += 'count: ' + data.count;
     }
-    
     recWhat += '}';
     
     console.log(recWhat);
-    console.log('Running java -jar "/var/www/html/HiddenPhrase/lib/Test.jar" ' + data.word + ' ' + data.count);
     
     socket.emit('resp:message', {
       message: recWhat
     });
 
-    const args = ["-jar", "/var/www/html/HiddenPhrase/lib/Test.jar", data.word, data.count];
+    console.log('Running java -jar "/var/www/html/HiddenPhrase/lib/AJAXTest.jar" ' + '"' + data.word + '"');
+    const args = ["-jar", "/var/www/html/HiddenPhrase/lib/AJAXTest.jar", data.word];
     const proc = spawn('java', args);
-    
 
-    proc.stdout.on('data', function (output) {
+    proc.stdout.on('data', (output) => {
+      console.log('' + output);
       socket.emit('resp:output', {
         output: '' + output,
         title: data.word + ' ' + data.count
       });
     });
     
+    proc.stderr.on('data', (data) => {
+      console.log(`stderr: ${data}`);
+    });
+
+    proc.on('close', (code) => {
+      console.log(`child process exited with code ${code}`);
+    });
     
   });
   
 	socket.on('disconnect', () => {
 		console.log('User Disconnected');
 	});
+	
 });
 
 /*
